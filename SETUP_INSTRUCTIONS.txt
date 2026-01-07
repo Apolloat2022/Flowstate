@@ -1,0 +1,119 @@
+# FLOWSTATE - WINDOWS SETUP INSTRUCTIONS
+
+## Quick Fix for Your Current Issue
+
+Your current `package.json` has a BOM (Byte Order Mark) encoding problem. Here's how to fix it:
+
+### Option 1: Replace Everything (RECOMMENDED)
+
+1. **Delete your current `C:\Flowstate\app` folder**
+
+2. **Download the `flowstate-clean` folder from Claude**
+
+3. **Rename it to `app`** and place it at `C:\Flowstate\app`
+
+4. **Open PowerShell in that directory:**
+   ```powershell
+   cd C:\Flowstate\app
+   ```
+
+5. **Install dependencies:**
+   ```powershell
+   npm install
+   ```
+
+6. **Run the app:**
+   ```powershell
+   npm run dev
+   ```
+
+7. **Open browser:** http://localhost:3000
+
+---
+
+### Option 2: Just Replace package.json
+
+1. **Delete your current** `C:\Flowstate\app\package.json`
+
+2. **Copy the new** `package.json` **from** `flowstate-clean` **to** `C:\Flowstate\app\`
+
+3. **In PowerShell:**
+   ```powershell
+   cd C:\Flowstate\app
+   Remove-Item -Recurse -Force node_modules
+   npm install
+   npm run dev
+   ```
+
+---
+
+## What's Included
+
+```
+flowstate-clean/
+├── package.json          ← Clean, no BOM!
+├── tsconfig.json         ← TypeScript config
+├── next.config.mjs       ← Next.js config
+├── .gitignore            ← Git ignore file
+├── .eslintrc.json        ← ESLint config
+├── README.md             ← Documentation
+├── app/
+│   ├── layout.tsx        ← Root layout
+│   ├── page.tsx          ← Home page
+│   └── globals.css       ← Global styles
+└── src/
+    └── components/
+        └── FlowStateApp.tsx  ← Main app component
+```
+
+---
+
+## After It's Working
+
+### Push to GitHub:
+
+```powershell
+cd C:\Flowstate\app
+git init
+git add .
+git commit -m "Initial commit - FlowState MVP"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/flowstate.git
+git push -u origin main
+```
+
+### Deploy to Vercel:
+
+1. Go to https://vercel.com
+2. Click "Import Project"
+3. Connect your GitHub repo
+4. Click "Deploy"
+5. Done! Your app is live
+
+---
+
+## Troubleshooting
+
+**If npm install is slow:**
+```powershell
+npm cache clean --force
+npm install --legacy-peer-deps
+```
+
+**If port 3000 is busy:**
+```powershell
+npm run dev -- -p 3001
+```
+Then visit http://localhost:3001
+
+**If you get module errors:**
+```powershell
+Remove-Item -Recurse -Force node_modules, package-lock.json
+npm install
+```
+
+---
+
+## Need Help?
+
+The issue you're facing is 100% an encoding problem with your `package.json` file. Using these clean files will solve it immediately!
